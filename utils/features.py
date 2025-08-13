@@ -6,12 +6,14 @@ The model has two basic features
 import pandas as pd
 import numpy as np
 from pathlib import Path
+import re
 import joblib
 import random
 from sklearn.base import BaseEstimator, TransformerMixin
 from utils.genre_summary import generate_genre_summary
 from utils.clean_lyrics import clean_lyrics
 from utils.spacy_cleaner import spacy_cleaner
+
 
 class Features:
     """
@@ -50,6 +52,12 @@ class Features:
         return {"suggestions" : set([random.choice(words) for _ in range(6)])}
 
 
+    def give_words_to_agent(self, genre_name: str):
+        """
+        This will do the same thing as suggestions just the output of the function is for agent
+        """
+        words = self.word_dictionary_of_genres[genre_name].values # extracted the words in a gnere
+        return list(set([random.choice(words) for _ in range(6)]))
 
 
     # trigger words feature
@@ -82,7 +90,27 @@ class Features:
         return list(set([random.choice(lyric_specific_words) for _ in range(1, 5)]))
 
 
+    def trigger_phrase(self, lyrics: str, triggers: str) -> list[dict]:
+        """
+        This method is build upon trigger_words method, it will create a full phrase out of the trigger words in given lyrics, selected by the ML model using the highest coefficient logic
 
+        Returns a list of dicts with {'word': trigger_word, 'phrase': full_lyric_line}
+        """
+
+        # triggers = self.trigger_words(lyrics, genre)
+        lines = lyrics.split("\n")  # we are breaking the lyrics into lines
+        result = []
+
+        for line in lines:
+            for word in triggers:
+                pattern = rf"\b{re.escape(word)}\b"
+                if re.search(pattern, line, re.IGNORECASE):
+                    result.append({
+                        "word": word,
+                        "phrase": line.strip()
+                    })
+
+        return result
 
 
     def predict_genre(self, lyrics: str):
