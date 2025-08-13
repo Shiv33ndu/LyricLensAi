@@ -13,7 +13,3 @@ def generate_genre_summary(genres: list[str]) -> str:
             summary.append(f"{genre} : {random.choice(SINGLE_GENRE_SUMMARY[genre].values)}")
 
     return "\n".join(summary)
-
-
-
-
