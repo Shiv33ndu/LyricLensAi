@@ -74,7 +74,11 @@ class Features:
             return []
         
         clean_lyrics = set(spacy_cleaner(lyrics).split())
-    
+
+        if clean_lyrics == set():
+            return []
+
+        print(f"SPACY CLEAN : {clean_lyrics}")
         all_feature_names = self.vectorizer.get_feature_names_out() # we took out all the feature names out 
         all_genre_classes = list(self.encoder.classes_)
         genre_index = all_genre_classes.index(genre) # we need the index number of the genres
@@ -125,7 +129,9 @@ class Features:
             return {"genres" : [], "summary" : "", "triggers" : []}
         
         clean_lrc = clean_lyrics(lyrics)
-        print(clean_lrc[:20])
+        if clean_lrc == "":
+            return {"genres" : [], "summary" : "", "triggers" : []}
+        # print(clean_lrc[:20])
 
         vector = self.vectorizer.transform([clean_lrc])
         probable = self.model.predict_proba(vector)[0]
