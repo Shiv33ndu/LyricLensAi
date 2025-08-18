@@ -1,10 +1,11 @@
 import streamlit as st
 from agent_layer import handle_input_ui, CHAT_MEMORY, render_chat_history
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
+import json
 
 # about page and heading description
 st.set_page_config(page_title='LyricLens AI - Your creative writing assistant', layout='centered')
-st.title('LyricLensAi')
+st.title('LyricLens.Ai')
 st.subheader("Your Creative Writing Assistant!")
 st.write('\n\nHi there!! I am your creative writing assistant! Want me analyze you lyrics?\n\n Tell you how your song sounds lyrically, or you need help on completing your catchy hooks! All that assistance is just one chat away!! 😎')
 
@@ -31,7 +32,7 @@ for message in st.session_state.messages:
             st.markdown(f"```\n{message.content}\n```")
     
     elif isinstance(message, AIMessage):
-        with st.chat_message("assistant", avatar="assets\Music.gif"):
+        with st.chat_message("assistant"):
             st.markdown(message.content)
 
 
@@ -57,3 +58,5 @@ if prompt:
             placeholder.markdown(response + "▌")
         placeholder.markdown(response)
         update_history(prompt, response) # updating chat history for CHAT_MEMORY and streamlit_session 
+    
+    

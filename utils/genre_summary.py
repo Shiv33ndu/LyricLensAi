@@ -12,4 +12,4 @@ def generate_genre_summary(genres: list[str]) -> str:
         if genre in SINGLE_GENRE_SUMMARY.columns:
             summary.append(f"{genre} : {random.choice(SINGLE_GENRE_SUMMARY[genre].values)}")
 
-    return "\n".join(summary)
+    return summary

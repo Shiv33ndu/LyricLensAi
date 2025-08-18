@@ -78,7 +78,7 @@ class Features:
         if clean_lyrics == set():
             return []
 
-        print(f"SPACY CLEAN : {clean_lyrics}")
+        # print(f"SPACY CLEAN : {clean_lyrics}")
         all_feature_names = self.vectorizer.get_feature_names_out() # we took out all the feature names out 
         all_genre_classes = list(self.encoder.classes_)
         genre_index = all_genre_classes.index(genre) # we need the index number of the genres
@@ -90,7 +90,8 @@ class Features:
         global_trigger_words = [all_feature_names[i] for i in top_coeff]   
 
         lyric_specific_words = list(set(global_trigger_words) & clean_lyrics) # we only take out the words that are in lyrics
-
+        if not lyric_specific_words:
+            return []
         return list(set([random.choice(lyric_specific_words) for _ in range(1, 5)]))
 
 
@@ -129,6 +130,7 @@ class Features:
             return {"genres" : [], "summary" : "", "triggers" : []}
         
         clean_lrc = clean_lyrics(lyrics)
+        # print(clean_lrc)
         if clean_lrc == "":
             return {"genres" : [], "summary" : "", "triggers" : []}
         # print(clean_lrc[:20])
