@@ -37,6 +37,7 @@
 
 ##  Repository Structure
 
+    ```mermaid
     %% LyricLensAi directory structure
     flowchart TD
         A[LyricLensAi/] --> B[model/]
@@ -57,7 +58,7 @@
     
         class A,B,C folder
         class D,E,F,G,H,I,B1,B2,B3 file
-
+     ```
 
 ---
 
