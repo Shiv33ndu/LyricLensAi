@@ -1,15 +1,106 @@
 import streamlit as st
 from agent_layer import handle_input_ui, CHAT_MEMORY, render_chat_history
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
-import json
+import time
 
 # about page and heading description
-st.set_page_config(page_title='LyricLens AI - Your creative writing assistant', layout='centered')
-st.title('LyricLens.Ai')
-st.subheader("Your Creative Writing Assistant!")
-st.write('\n\nHi there!! I am your creative writing assistant! Want me analyze you lyrics?\n\n Tell you how your song sounds lyrically, or you need help on completing your catchy hooks! All that assistance is just one chat away!! 😎')
+st.set_page_config(page_title='LyricLens AI', layout='centered')
 
-# st.session_state.clear()
+
+# --- Typewriter Animation ---
+def typewriter(text, speed=0.05):
+    container = st.empty()
+    typed_text = ""
+    for char in text:
+        typed_text += char
+        container.markdown(f"<h1 style='text-align: center; color: transparent; background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); background-clip: text;'>{typed_text}</h1>", unsafe_allow_html=True)
+        time.sleep(speed)
+
+# --- Subheading Typewriter ---
+def typewriter_subtitle(text, speed=0.05):
+    container = st.empty()
+    typed_text = ""
+    for char in text:
+        typed_text += char
+        container.markdown(f"<h4 style='text-align: center; color: white;'>{typed_text}</h4>", unsafe_allow_html=True)
+        time.sleep(speed)
+
+# --- App Start ---
+if "initialized" not in st.session_state:
+    typewriter("LyricLens.Ai", speed=0.08)
+    typewriter_subtitle("Your Creative Writing Companion!", speed=0.05)
+
+    # --- Fade In Markdown (CSS animation) ---
+    st.markdown(
+        """
+        <style>
+        .fade-in {
+            animation: fadeIn 2s ease-in forwards;
+            opacity: 0;
+        }
+        .fade-out {
+        animation: fadeOut .2s ease-out forwards;
+        opacity: 1;
+        }
+
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        
+        @keyframes fadeOut {
+        from {opacity: 1;}
+        to {opacity: 0;}
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div class="fade-in">
+
+        🎵 **What I Am**
+
+        I'm a ML model that can:  
+        - Classify your lyrics and tell you how they *feel* genre-wise.  
+        - Suggest the words/phrases to match the style you want (Pop, Rock, Hip-Hop, etc.).  
+        - Help polish your hooks, verses, and choruses with creative suggestions.  
+        - And I can chat and discuss about creative songwriting in general.  
+
+        ---
+
+        👉 **How to Get Started**  
+        1. Type or paste your lyrics in the chat box.  
+        2. Or Ask: *"Suggest some line for my chorus."*  
+        3. Get instant insights + lyric suggestions! 😎  
+
+        💡 *Tip: The more lyrics you share, the better my suggestions get.*  
+
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+# this chat will be stateless per session.
+if 'initialized' not in st.session_state:
+    st.session_state.clear()
+    st.session_state.initialized = True
+# st.session_state.clear() # clearing leftover states
 
 
 def update_history(user_msg: str, assistant_msg: str):
@@ -29,7 +120,9 @@ if "messages" not in st.session_state:
 for message in st.session_state.messages:
     if isinstance(message, HumanMessage):
         with st.chat_message("user"):
-            st.markdown(f"```\n{message.content}\n```")
+            st.markdown(f"<pre style='font-family: Pacifico, cursive; font-size:18px; white-space:pre-wrap;'>{message.content}</pre>",
+        unsafe_allow_html=True)
+            # st.markdown(f"```\n{message.content}\n```")
     
     elif isinstance(message, AIMessage):
         with st.chat_message("assistant"):
