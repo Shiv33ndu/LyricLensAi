@@ -39,9 +39,9 @@
 
 LyricLensAi/
 ├── model/ # Pretrained genre model artifacts
-│ ├── genre_predict_145_prob.pkl
-│ ├── vectorizer_145_prob.pkl
-│ └── encoder_145_prob.pkl
+│   ├── genre_predict_145_prob.pkl
+│   ├── vectorizer_145_prob.pkl
+│   └── encoder_145_prob.pkl
 ├── utils/ # Utility routines (text cleaning, feature extraction)
 ├── agent_direction.py # Custom conversation templates
 ├── agent_layer.py # Orchestrates prompt chains and model integration
@@ -49,8 +49,6 @@ LyricLensAi/
 ├── requirements.txt # Project dependencies
 ├── README.md # Project documentation
 └── LICENSE # MIT License
-
----
 
 ---
 
@@ -71,14 +69,14 @@ LyricLensAi/
    - Sign up at Hugging Face and generate an API Token.
    - Store it as an environment variabe:
      ```bash
-     export HUGGINGFACEHUB_API_TOKEN="your_token_here"
+     export HUGGINGFACEHUB_API_TOKEN='your_token_here'
 
 ---
 
 ## Running Locally
-
-   ```bash
-   streamlit run streamlit_app.py
+    ```bash
+    streamlit run streamlit_app.py
+  
 
 Interact with the UI:
 - Paste your lyrics (English Only)
