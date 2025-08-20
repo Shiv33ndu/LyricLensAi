@@ -37,18 +37,27 @@
 
 ##  Repository Structure
 
-LyricLensAi/
-|--- model/ # Pretrained genre model artifacts
-|     |---genre_predict_145_prob.pkl
-|     |---vectorizer_145_prob.pkl
-|     |---encoder_145_prob.pkl
-|--- utils/ # Utility routines (text cleaning, feature extraction)
-|--- agent_direction.py # Custom conversation templates
-|--- agent_layer.py # Orchestrates prompt chains and model integration
-|--- streamlit_app.py # Entrypoint for Streamlit UI
-|--- requirements.txt # Project dependencies
-|--- README.md # Project documentation
-|--- LICENSE # MIT License
+### 🗂 Project Architecture
+
+    ```mermaid
+    graph TD
+    
+        A[LyricLensAi] --> B[model]
+        A --> C[utils]
+        A --> D[agent_direction.py]
+        A --> E[agent_layer.py]
+        A --> F[streamlit_app.py]
+        A --> G[requirements.txt]
+        A --> H[README.md]
+        A --> I[LICENSE]
+    
+        B --> B1[genre_predict_145_prob.pkl]
+        B --> B2[vectorizer_145_prob.pkl]
+        B --> B3[encoder_145_prob.pkl]
+    
+        C[utils] --> C1[text cleaning]
+        C --> C2[feature extraction]
+
 
 ---
 
