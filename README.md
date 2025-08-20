@@ -60,18 +60,6 @@ flowchart TD
 ```
 ---
 
-Here is a simple flow chart:
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-
----
-
 ##  Installation & Setup
 
 1. Clone the repo:
@@ -85,7 +73,7 @@ graph TD;
    source venv/bin/activate  # or `venv\Scripts\activate` on Windows
    pip install -r requirements.txt
 
-4. (Optional) TO use Hugging Face LLaMA model:
+4. (Optional) To use Hugging Face LLaMA model:
    - Sign up at Hugging Face and generate an API Token.
    - Store it as an environment variabe:
      ```bash
@@ -105,4 +93,103 @@ Interact with the UI:
 
 ---
 
+## How The App Works
 
+1. **Classification**: User input is routed via agent prompt to classify as (`lyrics`), (`suggestion`), (`chat`), or (`question`).
+2. **Language Filter**: Lyrics input is language-checked; non-English lyrics trigger a friendly error.
+3. **Genre Model**: For lyrics input, text cleaning is applied, then logistic regression predicts genres and summaries.
+4. **LLM Feedback**: Depending on mode, either a creative review or suggestion is generated using the LLaMA model.
+5. **UI Streaming**: All outputs stream within Streamlit’s chat UI, keeping the pipeline interactive.
+
+---
+
+
+## 🚀 How the ML Model Works
+
+### 1. Input Processing
+- User submits **lyrics** (raw text).
+- Lyrics are passed through two cleaners with different goals:
+
+| Cleaner   | Role                                                                                       |
+|-----------|--------------------------------------------------------------------------------------------|
+| **spaCy** | Strict, linguistically-informed tokenization. Extracts **only words (no punctuation/verbs)** to build a **genre vocabulary** for trigger-word mapping. |
+| **NLTK**  | Performs slang tokenization using (`TweetTokenizer`), lighter normalization (lowercasing, stemming/lemmatization, removing stopwords). Prepares text for **classification**. |
+
+---
+
+### 2. Genre Prediction
+- Cleaned lyrics → transformed into **numerical features** using:
+  - **TF-IDF Vectorizer** (`vectorizer_145_prob.pkl`)
+  - **Label Encoder** (`encoder_145_prob.pkl`)
+- Features are passed into **Logistic Regression model** (`genre_predict_145_prob.pkl`) which outputs:
+  - **Probabilities** across 18 supported genres.
+  - **Top Genre** (highest probability).
+
+---
+
+### 3. Explainability
+- spaCy vocabulary tokens are cross-checked against a **genre-specific dictionary**.  
+- These tokens highlight **trigger words** responsible for predictions.  
+- Example: “dancing”, “stars” → strongly tied to **Pop**.
+
+---
+
+### 4. LLM-Powered Feedback
+- Classifier output (genres + trigger words + summary) is fed into a **LangChain agent**.
+- LLM generates:
+  - **TL;DR Genre Review** (short summary of prediction).
+  - **Detailed Lyric Review** (constructive suggestions based on genre style).
+
+---
+
+### 📊 Flow of the ML Pipeline
+
+```mermaid
+flowchart TD
+    A[🎤 User Lyrics Input] --> B[🧹 Preprocessing]
+    B --> B1[spaCy Cleaner\n(Strict tokenization, vocab building)]
+    B --> B2[NLTK Cleaner\n(Lowercasing, stopword removal, lemmatization)]
+
+    B1 --> C1[Trigger Word Vocabulary]
+    B2 --> C2[TF-IDF Vectorizer + Encoder]
+
+    C2 --> D[🎶 Logistic Regression Classifier]
+    D --> E[📈 Genre Probabilities]
+    D --> F[🏆 Top Genre Prediction]
+
+    C1 --> G[🔑 Trigger Word Mapping]
+    E --> H[LangChain + LLM Review]
+    F --> H
+    G --> H
+
+    H --> I[✨ Final Output\n(TL;DR Summary + Review + Suggestions)]
+```
+
+## Example Workflow
+
+1. **User Input:**
+     ```bash
+     “Dancing under neon stars, chasing memories in the dark.”
+2. **NLTK-Cleaned Text(using TweetTokenizer):**
+     ```bash
+     dancing neon stars chasing memories dark    # to keep the slang words in creative writing 
+3. **SpaCy Tokenization (for trigger word vocab):**
+     ```bash
+     {dancing, neon, stars, memories}
+4. **Classifier Prediction:**
+     - Pop: 45%
+     - EDM: 30%
+     - R&B: 25%
+       --> Lyric is having the influence of these genres
+     **Top genre:** Pop
+5. **Trigger Words Identified:** (`stars`), (`memories`), (`neon`)
+6. **LLM Output:**
+     ```yaml
+     TL;DR Review:
+    - Your lyric blends romantic, danceable vibes reminiscent of Pop.
+    - Key triggers: dancing, stars
+    - Top genre: Pop
+    
+    Review:
+    … (actionable feedback based on genre and trigger words)
+     ```
