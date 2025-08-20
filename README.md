@@ -1,10 +1,29 @@
 # 🎵 LyricLensAI  
 *LyricLensAi is a creative writing assistant that analyzes lyrics, identifies genre influences, provides feedback, and offers suggestions to adapt lyrics to different genres.*
 
+It combines **NLP + Machine Learning + LangChain agents** to provide an **interactive chat experience** for exploring lyrical styles and recommendations.  
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/) 
-[![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B.svg)](https://streamlit.io/) 
-[![scikit-learn](https://img.shields.io/badge/ML-scikit--learn-F7931E.svg)](https://scikit-learn.org/stable/)  
+
+<!-- Core ML / DS -->
+![scikit-learn](https://img.shields.io/badge/ML-Scikit--Learn-F7931E?logo=scikitlearn&logoColor=white)
+![Pandas](https://img.shields.io/badge/Data-Pandas-150458?logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/Data-NumPy-013243?logo=numpy&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Plot-Matplotlib-11557C?logo=plotly&logoColor=white)
+
+<!-- NLP & LLMs -->
+![spaCy](https://img.shields.io/badge/NLP-spaCy-09A3D5?logo=spacy&logoColor=white)
+![NLTK](https://img.shields.io/badge/NLP-NLTK-85C742?logo=python&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/🤗-HuggingFace-FCC624?logo=huggingface&logoColor=black)
+![LangChain](https://img.shields.io/badge/AI-LangChain-2EC866?logo=chainlink&logoColor=white)
+![Ollama](https://img.shields.io/badge/LLM-Ollama-000000?logo=ollama&logoColor=white)
+
+<!-- Deployment / Frontend -->
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)
+
+<!-- General -->
+![Python](https://img.shields.io/badge/Code-Python-3776AB?logo=python&logoColor=white)
+![GitHub](https://img.shields.io/badge/Repo-GitHub-181717?logo=github&logoColor=white) 
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) 
 [![Status](https://img.shields.io/badge/Project-Active-success.svg)]()  
 
@@ -101,7 +120,7 @@ Interact with the UI:
 
 ## How The App Works
 
-1. **Classification**: User input is routed via agent prompt to classify as (`lyrics`), (`suggestion`), (`chat`), or (`question`).
+1. **Classification**: User input is routed via agent prompt to classify as `lyrics`, `suggestion`, `chat`, or `question`.
 2. **Language Filter**: Lyrics input is language-checked; non-English lyrics trigger a friendly error.
 3. **Genre Model**: For lyrics input, text cleaning is applied, then logistic regression predicts genres and summaries.
 4. **LLM Feedback**: Depending on mode, either a creative review or suggestion is generated using the LLaMA model.
@@ -119,7 +138,7 @@ Interact with the UI:
 | Cleaner   | Role                                                                                       |
 |-----------|--------------------------------------------------------------------------------------------|
 | **spaCy** | Strict, linguistically-informed tokenization. Extracts **only words (no punctuation/verbs)** to build a **genre vocabulary** for trigger-word mapping. |
-| **NLTK**  | Performs slang tokenization using (`TweetTokenizer`), lighter normalization (lowercasing, stemming/lemmatization, removing stopwords). Prepares text for **classification**. |
+| **NLTK**  | Performs slang tokenization using `TweetTokenizer`, lighter normalization (lowercasing, stemming/lemmatization, removing stopwords). Prepares text for **classification**. |
 
 ---
 
@@ -194,7 +213,7 @@ flowchart TD
      - R&B: 25%
        --> Lyric is having the influence of these genres
      **Top genre:** Pop
-5. **Trigger Words Identified:** (`stars`), (`memories`), (`neon`)
+5. **Trigger Words Identified:** `stars`, `memories`, `neon`
 6. **LLM Output:**
      ```yaml
      TL;DR Review:
