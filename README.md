@@ -38,6 +38,12 @@
 ##  Repository Structure
     
 ```mermaid
+---
+config:
+  theme: neo-dark
+  look: neo
+  layout: dagre
+---
 flowchart TD
   A[LyricLensAi/] --> B[model/]
   A --> C[utils/]
@@ -145,24 +151,30 @@ Interact with the UI:
 ### 📊 Flow of the ML Pipeline
 
 ```mermaid
+---
+config:
+  theme: neo-dark
+  look: neo
+  layout: dagre
+---
 flowchart TD
-    A[🎤 User Lyrics Input] --> B[🧹 Preprocessing]
-    B --> B1[spaCy Cleaner - Strict tokenization, vocab building]
-    B --> B2[NLTK Cleaner - Lowercasing, stopword removal, lemmatization]
-
-    B1 --> C1[Trigger Word Vocabulary]
-    B2 --> C2[TF-IDF Vectorizer + Encoder]
-
-    C2 --> D[🎶 Logistic Regression Classifier]
-    D --> E[📈 Genre Probabilities]
-    D --> F[🏆 Top Genre Prediction]
-
-    C1 --> G[🔑 Trigger Word Mapping]
-    E --> H[LangChain + LLM Review]
+    A["🎤 User Lyrics Input"] --> B["🧹 Preprocessing"]
+    B --> B1["spaCy Cleaner - Strict tokenization, vocab building"] & B2["NLTK Cleaner - Lowercasing, stopword removal, lemmatization"]
+    B1 --> C1["Trigger Word Vocabulary"]
+    B2 --> C2["TF-IDF Vectorizer + Encoder"]
+    C2 --> D["🎶 Logistic Regression Classifier"]
+    D --> E["📈 Genre Probabilities"] & F["🏆 Top Genre Prediction"]
+    C1 --> G["🔑 Trigger Word Mapping"]
+    E --> H["LangChain + LLM Review"]
     F --> H
     G --> H
+    H --> I["✨ Final Output - TL;DR Summary + Review + Suggestions"]
+    n1["CORE CLASSIFIER ML MODEL"] --> D
+    D@{ shape: rect}
+    n1@{ shape: card}
+    style D fill:#000000,color:#FFFFFF,stroke:#FFD600
+    style n1 stroke:#2962FF,fill:#000000
 
-    H --> I[✨ Final Output - TL;DR Summary + Review + Suggestions]
 ```
 
 ## Example Workflow
