@@ -19,7 +19,6 @@ It combines **NLP + Machine Learning + LangChain agents** to provide an **intera
 
 <!-- Deployment / Frontend -->
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
-![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)
 
 <!-- General -->
 ![Python](https://img.shields.io/badge/Code-Python-3776AB?logo=python&logoColor=white)
