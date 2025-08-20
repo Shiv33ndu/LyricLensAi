@@ -37,26 +37,26 @@
 
 ##  Repository Structure
 
-### 🗂 Project Architecture
+%% LyricLensAi directory structure
+flowchart TD
+    A[LyricLensAi/] --> B[model/]
+    A --> C[utils/]
+    A --> D[agent_direction.py]
+    A --> E[agent_layer.py]
+    A --> F[streamlit_app.py]
+    A --> G[requirements.txt]
+    A --> H[README.md]
+    A --> I[LICENSE]
 
-    ```mermaid
-    graph TD
-    
-        A[LyricLensAi] --> B[model]
-        A --> C[utils]
-        A --> D[agent_direction.py]
-        A --> E[agent_layer.py]
-        A --> F[streamlit_app.py]
-        A --> G[requirements.txt]
-        A --> H[README.md]
-        A --> I[LICENSE]
-    
-        B --> B1[genre_predict_145_prob.pkl]
-        B --> B2[vectorizer_145_prob.pkl]
-        B --> B3[encoder_145_prob.pkl]
-    
-        C[utils] --> C1[text cleaning]
-        C --> C2[feature extraction]
+    B --> B1[genre_predict_145_prob.pkl]
+    B --> B2[vectorizer_145_prob.pkl]
+    B --> B3[encoder_145_prob.pkl]
+
+    classDef folder  fill:#e1f5fe,stroke:#01579b
+    classDef file    fill:#fff3e0,stroke:#e65100
+
+    class A,B,C folder
+    class D,E,F,G,H,I,B1,B2,B3 file
 
 
 ---
