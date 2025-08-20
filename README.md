@@ -58,6 +58,18 @@
     
 ---
 
+Here is a simple flow chart:
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+---
+
 ##  Installation & Setup
 
 1. Clone the repo:
