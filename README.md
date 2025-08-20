@@ -147,8 +147,8 @@ Interact with the UI:
 ```mermaid
 flowchart TD
     A[🎤 User Lyrics Input] --> B[🧹 Preprocessing]
-    B --> B1[spaCy Cleaner\n\(Strict tokenization, vocab building\)]
-    B --> B2[NLTK Cleaner\n\(Lowercasing, stopword removal, lemmatization\)]
+    B --> B1[spaCy Cleaner - Strict tokenization, vocab building]
+    B --> B2[NLTK Cleaner - Lowercasing, stopword removal, lemmatization]
 
     B1 --> C1[Trigger Word Vocabulary]
     B2 --> C2[TF-IDF Vectorizer + Encoder]
@@ -162,7 +162,7 @@ flowchart TD
     F --> H
     G --> H
 
-    H --> I[✨ Final Output\n(TL;DR Summary + Review + Suggestions)]
+    H --> I[✨ Final Output - TL;DR Summary + Review + Suggestions]
 ```
 
 ## Example Workflow
