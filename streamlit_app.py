@@ -85,18 +85,7 @@ if "initialized" not in st.session_state:
     )
 
 
-
-
-
-
-
-
-
-
-
-
-
-# this chat will be stateless per session.
+# now chat's will be stateless per session.
 if 'initialized' not in st.session_state:
     st.session_state.clear()
     st.session_state.initialized = True
