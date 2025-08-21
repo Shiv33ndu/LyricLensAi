@@ -14,21 +14,25 @@ def qna_temp() -> str:
     """
 
 
-def classifier_temp() -> str:
-    return """
-Classify the following user input into exactly one of these categories:
+
+def classifier_temp():
+  """
+  Provides the template for classifying user input.
+  """
+  return """
+Classify the following user input into exactly one of these categories. Use the provided chat history to understand the context of the user's current message.
 
 - "lyrics" → if the input appears to be song lyrics, poetry, or creative text.  
-  This includes multi-line input OR even short fragments with strong emotional, artistic, or metaphorical tone (e.g. "love hurts", "dancing in the rain").  
+  This includes multi-line input OR even short fragments with strong emotional, artistic, or metaphorical tone (e.g., "love hurts", "dancing in the rain").  
 
-- "suggestion" → if the user specifically asks for words, or how to make their lyrics sound like a certain genre (e.g. "How to make it sound like Hip-Hop").  
+- "suggestion" → if the user specifically asks for words, or how to make their lyrics sound like a certain genre (e.g., "How to make it sound like Hip-Hop").  
   If this is the case, also extract the genre mentioned. The genre must be mapped to one of these exact values:  
   ['Pop Rock', 'Alternative Rock', 'Pop', 'R&B', 'Hip-Hop', 'Alternative Pop', 'Latin', 'Metal', 'Punk', 'EDM', 'Rock', 'Blues', 'Folk', 'Indie', 'Country', 'Raggae', 'Jazz']  
-  If the user uses a lowercase, abbreviation, or slightly different spelling (e.g. "hiphop" → "Hip-Hop", "r&b" → "R&B", "reggae" → "Raggae", "rythm and blues" → "R&B"), normalize it to the closest valid genre.  
+  If the user uses a lowercase, abbreviation, or slightly different spelling (e.g., "hiphop" → "Hip-Hop", "r&b" → "R&B", "reggae" → "Raggae", "rythm and blues" → "R&B"), normalize it to the closest valid genre.  
 
 - "question" → if the input is a factual request, explanation request, or something where the user seeks knowledge or insight.  
 
-- "chat" → if the input is casual conversation (e.g. hi, hello, thanks, how are you, good morning).  
+- "chat" → if the input is casual conversation (e.g., hi, hello, thanks, how are you, good morning).  
 
 - "other" → if it doesn’t fit into any of the above categories (random strings, gibberish, only numbers, etc.).  
 
@@ -38,9 +42,15 @@ Output format (JSON only, no extra text):
   "genre": "<mapped genre if category is suggestion, else null>"
 }}
 
+Chat History:
+{chat_history}
+---
 User input:
 {user_input}
 """
+
+
+
 
 
 def chit_chat_temp() -> str:
